@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Login from "./Login";
+import { useAuth } from "../context/AuthProvider";
+import Logout from "./Logout";
 
 const Navbar = () => {
+  const [authUser, setAuthUser] = useAuth();
   const navItem = (
     <>
       <li>
@@ -79,17 +82,21 @@ const Navbar = () => {
               </label>
             </div>
 
-            <div>
-              <a
-                className="btn text-base-100 bg-slate-200  hover:text-white"
-                onClick={() =>
-                  document.getElementById("my_modal_3").showModal()
-                }
-              >
-                Login
-              </a>
-              <Login />
-            </div>
+            {authUser ? (
+              <Logout />
+            ) : (
+              <div>
+                <a
+                  className="btn text-base-100 bg-slate-200  hover:text-white"
+                  onClick={() =>
+                    document.getElementById("my_modal_3").showModal()
+                  }
+                >
+                  Login
+                </a>
+                <Login />
+              </div>
+            )}
           </div>
         </div>
       </div>
